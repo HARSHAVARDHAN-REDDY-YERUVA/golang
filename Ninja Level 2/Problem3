@@ -1,0 +1,24 @@
+# Create TYPED and UNTYPED constants. Print the values of the constants.
+
+package main
+
+import "fmt"
+
+const(
+	a = 42
+	b = "Harsha"
+	c = true
+)
+
+const(
+	d int = 43
+	e string = "Yeruva"
+	f float64 = 12.12345
+)
+
+func main() {
+	fmt.Println(a, b, c, d, e, f)
+}
+
+Output:
+42 Harsha true 43 Yeruva 12.12345
