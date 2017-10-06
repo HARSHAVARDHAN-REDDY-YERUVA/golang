@@ -1,0 +1,14 @@
+#Write a program that prints a number in decimal, binary, and hex
+
+package main
+
+import "fmt"
+
+func main() {
+	a := 42
+	fmt.Printf("Numeric representations of %v.\nDecimal: %d\t Binary: %b\t Hex: %x", a, a, a, a)
+}
+
+Output:
+Numeric representations of 42.
+Decimal: 42	 Binary: 101010	 Hex: 2a
