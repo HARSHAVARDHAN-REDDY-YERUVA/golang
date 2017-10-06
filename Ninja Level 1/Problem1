@@ -19,3 +19,10 @@ func main() {
 	fmt.Println(y)
 	fmt.Println(z)
 }
+
+Output:
+
+42 James Bond true
+42
+James Bond
+true
