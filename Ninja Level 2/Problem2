@@ -1,0 +1,38 @@
+# 1. Using the following operators, write expressions and assign their values to variables:
+#     ==
+#     <=
+#     >=
+#     !=
+#     <
+#     >
+# 2. Now print each of the variables. 
+
+package main
+
+import "fmt"
+
+func main() {
+	a := 42
+	b := 7
+	
+	t1 := (a == b)
+	t2 := (a <= b)
+	t3 := (a >= b)
+	t4 := (a != b)
+	t5 := (a < b)
+	t6 := (a > b)
+	fmt.Println(t1)
+	fmt.Println(t2)
+	fmt.Println(t3)
+	fmt.Println(t4)
+	fmt.Println(t5)
+	fmt.Println(t6)
+}
+
+Output:
+false
+false
+true
+true
+false
+true
