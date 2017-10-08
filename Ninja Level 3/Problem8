@@ -1,0 +1,21 @@
+#Create a program that uses a switch statement with no switch expression specified.
+
+package main
+
+import "fmt"
+
+func main() {
+
+	switch {
+	case true:
+		fmt.Println("Prints")
+	case false:
+		fmt.Println("Does not print")
+	default:
+		fmt.Println("default")
+	}
+}
+
+
+Output:
+Prints
