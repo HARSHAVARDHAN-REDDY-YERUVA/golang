@@ -1,0 +1,28 @@
+# 1. Write down what these print:
+#     fmt.Println(true && true) 
+#     fmt.Println(true && false) 
+#     fmt.Println(true || true) 
+#     fmt.Println(true || false) 
+#     fmt.Println(!true)
+
+package main
+
+import "fmt"
+
+func main() {
+
+	fmt.Println("true && true\t", true && true)
+	fmt.Println("true && false\t", true && false)
+	fmt.Println("true || true\t", true || true)
+	fmt.Println("true || false\t", true || false)
+	fmt.Println("!true\t\t", !true)
+}
+
+
+Output:
+
+true && true	 true
+true && false	 false
+true || true	 true
+true || false	 true
+!true		 false
