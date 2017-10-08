@@ -1,0 +1,21 @@
+#Create a program that uses a switch statement with the switch expression specified as 
+#a variable of TYPE string with the IDENTIFIER “favSport”.
+
+package main
+
+import "fmt"
+
+func main() {
+
+	x := "favSport"
+	switch x {
+	case x:
+		fmt.Println("Cricket")
+	default:
+		fmt.Println("default")
+	}
+}
+
+Output:
+
+Cricket
