@@ -1,0 +1,41 @@
+# Using the code from the previous example, add a record to your map. Now print the map out using the “range” loop
+
+package main
+
+import "fmt"
+
+func main() {
+	m := map[string][]string{
+		`bond_james`:      []string{`Shaken, not stirred`, `Martinis`, `Women`},
+		`moneypenny_miss`: []string{`James Bond`, `Literature`, `Computer Science`},
+		`no_dr`:           []string{`Being evil`, `Ice cream`, `Sunsets`},
+	}
+	
+	m[`yeruva_harsha`] = []string{`Briyani`, `Gym`, `Yoga`}
+	
+	for k, v := range m {
+		fmt.Println(k)
+		for i, v2 := range v {
+			fmt.Printf("\t%v\t%v\n",i, v2)
+		}
+	}
+}
+
+Output:
+
+moneypenny_miss
+	0	James Bond
+	1	Literature
+	2	Computer Science
+no_dr
+	0	Being evil
+	1	Ice cream
+	2	Sunsets
+yeruva_harsha
+	0	Briyani
+	1	Gym
+	2	Yoga
+bond_james
+	0	Shaken, not stirred
+	1	Martinis
+	2	Women
