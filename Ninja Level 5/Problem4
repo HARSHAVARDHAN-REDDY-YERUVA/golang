@@ -1,0 +1,21 @@
+# Create and use an anonymous struct.
+
+package main
+
+import "fmt"
+
+func main() {
+	p := struct {
+		first string
+		last  string
+	}{
+		first: "Harsha",
+		last:  "Yeruva",
+	}
+
+	fmt.Println(p)
+}
+
+Output:
+
+{Harsha Yeruva}
