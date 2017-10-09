@@ -1,0 +1,51 @@
+# Take the code from the previous exercise, then store the values of type person in a map with the key of last name. 
+# Access each value in the map. Print out the values, ranging over the slice.
+
+package main
+
+import "fmt"
+
+type person struct {
+	first       string
+	last        string
+	favIceCream []string
+}
+
+func main() {
+
+	p1 := person{
+		first:       "Harsha",
+		last:        "Yeruva",
+		favIceCream: []string{"Vanilla", "Butter Scotch", "Pecan Butter"},
+	}
+
+	p2 := person{
+		first:       "Nagaraju",
+		last:        "Yasarapu",
+		favIceCream: []string{"Vanilla", "Chocolate"},
+	}
+
+	m := map[string]person{}
+	m["Yeruva"] = p1
+	m["Yasarapu"] = p2
+
+	for k, v := range m {
+		fmt.Println("Values of ", k)
+		fmt.Printf("\t%v %v\n", v.first, v.last)
+		for _, v2 := range v.favIceCream {
+			fmt.Printf("\t\t%v\n", v2)
+		}
+	}
+
+}
+
+Output:
+Values of  Yeruva
+	Harsha Yeruva
+		Vanilla
+		Butter Scotch
+		Pecan Butter
+Values of  Yasarapu
+	Nagaraju Yasarapu
+		Vanilla
+		Chocolate
