@@ -1,0 +1,51 @@
+# 1. Create your own type “person” which will have an underlying type of “struct” so that it can store the following data:
+#     first name
+#     last name
+#     favorite ice cream flavors
+# 2. Create two VALUES of TYPE person. Print out the values, ranging over the elements in the slice which stores the favorite flavors. 
+
+package main
+
+import "fmt"
+
+type person struct {
+	first       string
+	last        string
+	favIceCream []string
+}
+
+func main() {
+
+	p1 := person{
+		first:       "Harsha",
+		last:        "Yeruva",
+		favIceCream: []string{"Vanilla", "Butter Scotch", "Pecan Butter"},
+	}
+
+	p2 := person{
+		first:       "Vishnu",
+		last:        "Yeruva",
+		favIceCream: []string{"Vanilla", "Chocolate"},
+	}
+
+	fmt.Println(p1.first, p1.last)
+	for _, v := range p1.favIceCream {
+		fmt.Printf("\t%v\n", v)
+	}
+
+	fmt.Println(p2.first, p2.last)
+	for _, v := range p2.favIceCream {
+		fmt.Printf("\t%v\n", v)
+	}
+
+}
+
+Output:
+
+Harsha Yeruva
+	Vanilla
+	Butter Scotch
+	Pecan Butter
+Vishnu Yeruva
+	Vanilla
+	Chocolate
