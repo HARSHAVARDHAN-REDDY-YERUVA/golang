@@ -10,6 +10,9 @@ func main() {
 }
 
 func foo() {
+	defer func() {
+		fmt.Println("foo defer")
+	}()
 	fmt.Println("foo")
 }
 
@@ -21,3 +24,4 @@ Output:
 
 bar
 foo
+foo defer
