@@ -11,3 +11,5 @@ Ninja Level 3 - Control Flow
 Ninja Level 4 - Grouping Data
 
 Ninja Level 5 - Structs
+
+Ninja Level 6 - Functions
