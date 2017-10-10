@@ -1,0 +1,21 @@
+# create a func which “encloses” the scope of a variable
+
+package main
+
+import "fmt"
+
+func main() {
+	var x int
+	x = 2017
+	{
+		y := x
+		y++
+		fmt.Println("Next year is", y)
+	}
+	fmt.Println("Current year is", x)
+}
+
+Output:
+
+Next year is 2018
+Current year is 2017
