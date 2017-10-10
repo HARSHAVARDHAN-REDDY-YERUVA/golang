@@ -1,0 +1,14 @@
+# Build and use an anonymous func 
+
+package main
+
+import "fmt"
+
+func main() {
+	func() {
+		fmt.Println("Printing from anonymous function")
+	}()
+}
+
+Output:
+Printing from anonymous function
