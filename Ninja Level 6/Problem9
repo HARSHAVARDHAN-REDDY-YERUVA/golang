@@ -1,0 +1,38 @@
+# pass a func into a func as an argument 
+
+package main
+
+import "fmt"
+
+func main() {
+	xi := []int{1,2,3,4,5,6,7,8,9}
+	fmt.Println(xi)
+	evenSlice := even(xi...)
+	fmt.Println(evenSlice)
+	evenTotal := evenSum(even, evenSlice)
+	fmt.Println(evenTotal)
+}
+
+func even(x ...int) []int {
+	var y []int
+	for _, v := range x {
+		if v % 2 == 0 {
+			y = append(y, v)
+		}
+	}
+	return y
+}
+
+func evenSum(f func(x ...int) []int, y []int) int {
+	sum := 0
+	for _, v := range f(y...) {
+		sum += v
+	}
+	return sum
+}
+
+Output:
+
+[1 2 3 4 5 6 7 8 9]
+[2 4 6 8]
+20
