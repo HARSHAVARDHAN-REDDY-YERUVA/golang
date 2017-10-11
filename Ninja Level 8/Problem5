@@ -1,0 +1,147 @@
+# 1. Starting with this code, sort the []user by 
+#     age
+#     last
+# 2. Also sort each []string “Sayings” for each user
+# 3. print everything in a way that is pleasant
+
+package main
+
+import (
+	"fmt"
+	"sort"
+)
+
+type user struct {
+	First   string
+	Last    string
+	Age     int
+	Sayings []string
+}
+
+type byAge []user
+type byLast []user
+
+func (ba byAge) Len() int {
+	return len(ba)
+}
+
+func (ba byAge) Less(i int, j int) bool {
+	return ba[i].Age < ba[j].Age
+}
+
+func (ba byAge) Swap(i int, j int) {
+	ba[i], ba[j] = ba[j], ba[i]
+}
+
+func (ba byLast) Len() int {
+	return len(ba)
+}
+
+func (ba byLast) Less(i int, j int) bool {
+	return ba[i].Last < ba[j].Last
+}
+
+func (ba byLast) Swap(i int, j int) {
+	ba[i], ba[j] = ba[j], ba[i]
+}
+
+
+func main() {
+	u1 := user{
+		First: "James",
+		Last:  "Bond",
+		Age:   32,
+		Sayings: []string{
+			"Shaken, not stirred",
+			"Youth is no guarantee of innovation",
+			"In his majesty's royal service",
+		},
+	}
+
+	u2 := user{
+		First: "Miss",
+		Last:  "Moneypenny",
+		Age:   27,
+		Sayings: []string{
+			"James, it is soo good to see you",
+			"Would you like me to take care of that for you, James?",
+			"I would really prefer to be a secret agent myself.",
+		},
+	}
+
+	u3 := user{
+		First: "M",
+		Last:  "Hmmmm",
+		Age:   54,
+		Sayings: []string{
+			"Oh, James. You didn't.",
+			"Dear God, what has James done now?",
+			"Can someone please tell me where James Bond is?",
+		},
+	}
+
+	users := []user{u1, u2, u3}
+
+	fmt.Println(users)
+
+	// your code goes here
+
+	sort.Sort(byAge(users))
+	fmt.Println("sorting by age")
+
+	for i, v := range users {
+		fmt.Println("Person", i)
+		fmt.Printf("\t%s %s %d\n", v.First, v.Last, v.Age)
+		for _, v2 := range v.Sayings {
+			fmt.Printf("\t\t%s\n", v2)
+		}
+	}
+	
+	sort.Sort(byLast(users))
+	fmt.Println("sorting by last name")
+
+	for i, v := range users {
+		fmt.Println("Person", i)
+		fmt.Printf("\t%s %s %d\n", v.First, v.Last, v.Age)
+		for _, v2 := range v.Sayings {
+			fmt.Printf("\t\t%s\n", v2)
+		}
+	}
+
+}
+
+Output:
+
+[{James Bond 32 [Shaken, not stirred Youth is no guarantee of innovation In his majesty's royal service]} {Miss Moneypenny 27 [James, it is soo good to see you Would you like me to take care of that for you, James? I would really prefer to be a secret agent myself.]} {M Hmmmm 54 [Oh, James. You didn't. Dear God, what has James done now? Can someone please tell me where James Bond is?]}]
+sorting by age
+Person 0
+	Miss Moneypenny 27
+		James, it is soo good to see you
+		Would you like me to take care of that for you, James?
+		I would really prefer to be a secret agent myself.
+Person 1
+	James Bond 32
+		Shaken, not stirred
+		Youth is no guarantee of innovation
+		In his majesty's royal service
+Person 2
+	M Hmmmm 54
+		Oh, James. You didn't.
+		Dear God, what has James done now?
+		Can someone please tell me where James Bond is?
+sorting by last name
+Person 0
+	James Bond 32
+		Shaken, not stirred
+		Youth is no guarantee of innovation
+		In his majesty's royal service
+Person 1
+	M Hmmmm 54
+		Oh, James. You didn't.
+		Dear God, what has James done now?
+		Can someone please tell me where James Bond is?
+Person 2
+	Miss Moneypenny 27
+		James, it is soo good to see you
+		Would you like me to take care of that for you, James?
+		I would really prefer to be a secret agent myself.
