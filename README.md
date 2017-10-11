@@ -15,3 +15,5 @@ Ninja Level 5 - Structs
 Ninja Level 6 - Functions
 
 Ninja Level 7 - Pointers
+
+Ninja Level 8 - Application
