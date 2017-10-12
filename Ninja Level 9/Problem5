@@ -1,0 +1,63 @@
+# Fix the race condition you created in exercise #4 by using package atomic
+
+package main
+
+import (
+	"fmt"
+	"runtime"
+	"sync"
+	"sync/atomic"
+)
+
+var wg sync.WaitGroup
+
+func main() {
+	fmt.Println("CPUs:", runtime.NumCPU())
+	fmt.Println("Goroutines:", runtime.NumGoroutine())
+	var counter int64
+	const gs = 10
+	wg.Add(gs)
+	for i := 0; i < gs; i++ {
+		go func() {
+			atomic.AddInt64(&counter, 1)
+			fmt.Println(atomic.LoadInt64(&counter))
+			wg.Done()
+		}()
+		fmt.Println("Goroutines:", runtime.NumGoroutine())
+	}
+
+	wg.Wait()
+	fmt.Println(counter)
+	fmt.Println("CPUs:", runtime.NumCPU())
+	fmt.Println("Goroutines:", runtime.NumGoroutine())
+}
+
+Output:
+
+With & Without -race flag
+
+CPUs: 4
+Goroutines: 2
+Goroutines: 3
+1
+Goroutines: 3
+2
+Goroutines: 4
+3
+Goroutines: 4
+4
+Goroutines: 4
+5
+Goroutines: 4
+6
+Goroutines: 4
+7
+Goroutines: 4
+8
+Goroutines: 4
+9
+Goroutines: 4
+10
+10
+CPUs: 4
+Goroutines: 2
