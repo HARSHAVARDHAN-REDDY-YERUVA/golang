@@ -1,0 +1,282 @@
+# Using goroutines, create an incrementer program
+# have a variable to hold the incrementer value
+# launch a bunch of goroutines
+# each goroutine should
+# read the incrementer value
+# store it in a new variable
+# yield the processor with runtime.Gosched()
+# increment the new variable
+# write the value in the new variable back to the incrementer variable
+# use waitgroups to wait for all of your goroutines to finish
+# the above will create a race condition. 
+# Prove that it is a race condition by using the -race flag
+
+package main
+
+import (
+	"fmt"
+	"runtime"
+	"sync"
+)
+
+var wg sync.WaitGroup
+
+func main() {
+	fmt.Println("CPUs:", runtime.NumCPU())
+	fmt.Println("Goroutines:", runtime.NumGoroutine())
+	counter := 0
+	const gs = 100
+	wg.Add(gs)
+	for i := 0; i < gs; i++ {
+		go func() {
+			v := counter
+			runtime.Gosched()
+			v++
+			counter = v
+			wg.Done()
+		}()
+		fmt.Println("Goroutines:", runtime.NumGoroutine())
+	}
+
+	wg.Wait()
+	fmt.Println(counter)
+	fmt.Println("CPUs:", runtime.NumCPU())
+	fmt.Println("Goroutines:", runtime.NumGoroutine())
+}
+
+Output:
+
+Without -race flag:
+CPUs: 4
+Goroutines: 1
+Goroutines: 2
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 4
+Goroutines: 3
+Goroutines: 4
+Goroutines: 5
+Goroutines: 6
+Goroutines: 7
+Goroutines: 8
+Goroutines: 9
+Goroutines: 3
+Goroutines: 4
+Goroutines: 5
+Goroutines: 3
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 3
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 3
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+Goroutines: 2
+94
+CPUs: 4
+Goroutines: 1
+
+With -race flag:
+
+CPUs: 4
+Goroutines: 2
+Goroutines: 3
+Goroutines: 3
+==================
+WARNING: DATA RACE
+Read by goroutine 7:
+  main.main.func1()
+      /home/harsha/go/concurrent_prog/prob3/main.go:19 +0x2e
+
+Previous write by goroutine 6:
+  main.main.func1()
+      /home/harsha/go/concurrent_prog/prob3/main.go:22 +0x5b
+
+Goroutine 7 (running) created at:
+  main.main()
+      /home/harsha/go/concurrent_prog/prob3/main.go:24 +0x3a8
+
+Goroutine 6 (finished) created at:
+  main.main()
+      /home/harsha/go/concurrent_prog/prob3/main.go:24 +0x3a8
+==================
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 4
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 4
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 4
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 4
+Goroutines: 4
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+Goroutines: 3
+100
+CPUs: 4
+Goroutines: 2
+Found 1 data race(s)
+exit status 66
